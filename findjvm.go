@@ -3,6 +3,7 @@ package findjvm
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"github.com/Masterminds/semver/v3"
 	"os"
 	"path/filepath"
@@ -60,7 +61,11 @@ func GetVersion(javaPath string) (*semver.Version, error) {
 		if err != nil {
 			continue
 		}
-		return semver.NewVersion(unquote)
+		version, err := semver.NewVersion(unquote)
+		if err != nil {
+			return nil, fmt.Errorf("unable to parse version '%s': %w", unquote, err)
+		}
+		return version, nil
 	}
 	return nil, ErrMissingVersion
 }

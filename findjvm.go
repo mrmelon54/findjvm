@@ -54,7 +54,7 @@ func GetVersion(javaPath string) (*semver.Version, error) {
 		if n == -1 {
 			continue
 		}
-		if t[:n] != "JAVA_VERSION" {
+		if t[:n] != "SEMANTIC_VERSION" {
 			continue
 		}
 		unquote, err := strconv.Unquote(t[n+1:])
